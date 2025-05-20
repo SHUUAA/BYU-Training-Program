@@ -45,25 +45,29 @@ const HomePage = () => {
           <Grid container spacing={4} alignItems="center">
             <Grid item xs={12} md={6}>
               <Typography
-                variant="h2"
+                variant="h4"
                 component="h1"
                 fontWeight="bold"
                 sx={{
                   color: colors.lifewoodGreen,
-                  fontSize: { xs: "2.2rem", md: "3rem" },
+                  fontSize: { xs: "1.5rem", md: "2rem" },
                   mb: 2,
                 }}
               >
                 Transform Your Future with Technology Skills
               </Typography>
-              <Typography variant="h5" color="textSecondary" sx={{ mb: 4 }}>
+              <Typography
+                variant="subtitle1"
+                color="textSecondary"
+                sx={{ mb: 4, fontSize: { xs: "1rem", md: "1.15rem" } }}
+              >
                 A collaborative learning program by Lifewood Data Technology and
                 BYU-Pathway Worldwide
               </Typography>
               <Box sx={{ display: "flex", gap: 2, flexWrap: "wrap" }}>
                 <Button
                   variant="contained"
-                  size="large"
+                  size="medium"
                   endIcon={<ArrowForwardIcon />}
                   sx={{
                     bgcolor: colors.byuGold,
@@ -78,7 +82,7 @@ const HomePage = () => {
                 </Button>
                 <Button
                   variant="outlined"
-                  size="large"
+                  size="medium"
                   sx={{
                     borderColor: colors.lifewoodGreen,
                     color: colors.lifewoodGreen,
@@ -107,7 +111,7 @@ const HomePage = () => {
                   style={{
                     maxWidth: "100%",
                     height: "auto",
-                    maxHeight: "240px",
+                    maxHeight: "180px",
                     objectFit: "contain",
                   }}
                 />
