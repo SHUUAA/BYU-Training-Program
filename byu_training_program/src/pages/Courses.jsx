@@ -78,6 +78,7 @@ const Courses = () => {
       level: "Beginner",
       image: "https://source.unsplash.com/random/400x220/?python",
       popular: true,
+      enrollmentUrl: "https://classroom.google.com/c/python-course-id-123",
     },
     {
       id: 2,
@@ -329,21 +330,27 @@ const Courses = () => {
                 </CardContent>
 
                 <CardActions sx={{ bgcolor: alpha(mainColor, 0.05), p: 2 }}>
-                  {course.id === 1 ? (
-                    // First course - button with link
+                  {course.enrollmentUrl ? (
+                    // Course with enrollment URL - button with link
                     <StyledButton
                       variant="contained"
                       fullWidth
                       component="a"
-                      href="https://classroom.google.com/c/NzY4Njg5MDg5OTUz?cjc=t2gf37ff"
+                      href={course.enrollmentUrl}
                       target="_blank"
                       rel="noopener noreferrer"
                     >
                       Enroll Now
                     </StyledButton>
                   ) : (
-                    // Other courses - regular button
-                    <StyledButton variant="contained" fullWidth>
+                    // Course without enrollment URL - regular button
+                    <StyledButton
+                      variant="contained"
+                      fullWidth
+                      onClick={() =>
+                        alert(`Enrollment for ${course.title} coming soon!`)
+                      }
+                    >
                       Enroll Now
                     </StyledButton>
                   )}
