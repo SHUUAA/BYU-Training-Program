@@ -102,7 +102,7 @@ const HomePage = () => {
                 }}
               >
                 <img
-                  src="/images/lifewood-byu-pathway-logo.png"
+                  src="LOGO1.png"
                   alt="Lifewood & BYU Pathway Partnership"
                   style={{
                     maxWidth: "100%",
