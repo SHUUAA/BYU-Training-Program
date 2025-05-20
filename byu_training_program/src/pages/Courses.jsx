@@ -18,7 +18,47 @@ import {
   AccessTime as ClockIcon,
   FilterList as FilterIcon,
 } from "@mui/icons-material";
-import { useTheme } from "@mui/material/styles";
+import { useTheme, styled, alpha } from "@mui/material/styles";
+
+// Define our custom color to match navbar and footer
+const mainColor = "#133020"; // Dark forest green
+const textColor = "#ffffff"; // White text
+
+// Styled components to maintain consistent design
+const StyledToggleButton = styled(ToggleButton)(({ theme }) => ({
+  "&.MuiToggleButton-root": {
+    borderColor: alpha(mainColor, 0.3),
+    color: mainColor,
+  },
+  "&.Mui-selected": {
+    backgroundColor: mainColor,
+    color: textColor,
+    "&:hover": {
+      backgroundColor: alpha(mainColor, 0.9),
+    },
+  },
+  "&:hover": {
+    backgroundColor: alpha(mainColor, 0.1),
+  },
+}));
+
+const StyledButton = styled(Button)(({ theme, variant }) => ({
+  ...(variant === "contained" && {
+    backgroundColor: mainColor,
+    color: textColor,
+    "&:hover": {
+      backgroundColor: alpha(mainColor, 0.9),
+    },
+  }),
+  ...(variant === "outlined" && {
+    borderColor: mainColor,
+    color: mainColor,
+    "&:hover": {
+      backgroundColor: alpha(mainColor, 0.1),
+      borderColor: mainColor,
+    },
+  }),
+}));
 
 const Courses = () => {
   const [selectedCategory, setSelectedCategory] = useState("All");
@@ -120,21 +160,22 @@ const Courses = () => {
   };
 
   const getLevelColor = (level) => {
+    // Custom level colors that complement the main color
     switch (level) {
       case "Beginner":
         return {
-          bg: theme.palette.success.light,
-          text: theme.palette.success.dark,
+          bg: "#e8f5e9", // Light green
+          text: "#2e7d32", // Dark green
         };
       case "Intermediate":
         return {
-          bg: theme.palette.warning.light,
-          text: theme.palette.warning.dark,
+          bg: "#fff8e1", // Light amber
+          text: "#ff8f00", // Dark amber
         };
       case "Advanced":
         return {
-          bg: theme.palette.error.light,
-          text: theme.palette.error.dark,
+          bg: "#ffebee", // Light red
+          text: "#c62828", // Dark red
         };
       default:
         return {
@@ -145,7 +186,7 @@ const Courses = () => {
   };
 
   return (
-    <Box sx={{ py: 8, bgcolor: "grey.50" }}>
+    <Box sx={{ py: 8, bgcolor: alpha(mainColor, 0.05) }}>
       <Box sx={{ maxWidth: 1200, mx: "auto", px: 2 }}>
         {/* Courses Header */}
         <Box
@@ -156,18 +197,23 @@ const Courses = () => {
             mb: 4,
           }}
         >
-          <Typography variant="h4" component="h2" fontWeight="bold">
+          <Typography
+            variant="h4"
+            component="h2"
+            fontWeight="bold"
+            sx={{ color: mainColor }}
+          >
             Featured Courses
           </Typography>
 
           {isMobile && (
-            <Button
+            <StyledButton
               startIcon={<FilterIcon />}
               variant="outlined"
               onClick={() => {}} // Can be used to open a filter dialog on mobile
             >
               Filter
-            </Button>
+            </StyledButton>
           )}
         </Box>
 
@@ -184,7 +230,7 @@ const Courses = () => {
             }}
           >
             {categories.map((category) => (
-              <ToggleButton
+              <StyledToggleButton
                 key={category}
                 value={category}
                 sx={{
@@ -196,7 +242,7 @@ const Courses = () => {
                 }}
               >
                 {category}
-              </ToggleButton>
+              </StyledToggleButton>
             ))}
           </ToggleButtonGroup>
         </Box>
@@ -210,8 +256,14 @@ const Courses = () => {
                   height: "100%",
                   display: "flex",
                   flexDirection: "column",
-                  transition: "transform 0.2s",
-                  "&:hover": { transform: "translateY(-5px)", boxShadow: 6 },
+                  transition: "all 0.3s ease",
+                  border: "1px solid",
+                  borderColor: "transparent",
+                  "&:hover": {
+                    transform: "translateY(-5px)",
+                    boxShadow: 6,
+                    borderColor: alpha(mainColor, 0.2),
+                  },
                 }}
               >
                 <Box sx={{ position: "relative" }}>
@@ -221,19 +273,7 @@ const Courses = () => {
                     image={course.image}
                     alt={course.title}
                   />
-                  {course.popular && (
-                    <Chip
-                      label="Popular"
-                      color="primary"
-                      size="small"
-                      sx={{
-                        position: "absolute",
-                        top: 16,
-                        right: 16,
-                        fontWeight: "bold",
-                      }}
-                    />
-                  )}
+                  {/* Removed Popular Chip */}
                   <Chip
                     label={course.category}
                     size="small"
@@ -242,7 +282,8 @@ const Courses = () => {
                       bottom: 16,
                       left: 16,
                       bgcolor: "rgba(255, 255, 255, 0.9)",
-                      color: theme.palette.primary.main,
+                      color: mainColor,
+                      fontWeight: "medium",
                     }}
                   />
                 </Box>
@@ -253,33 +294,12 @@ const Courses = () => {
                     variant="h6"
                     component="div"
                     fontWeight="bold"
+                    sx={{ color: mainColor }}
                   >
                     {course.title}
                   </Typography>
-                  <Typography
-                    variant="body2"
-                    color="text.secondary"
-                    sx={{ mb: 2 }}
-                  >
-                    by {course.instructor}
-                  </Typography>
-
-                  <Box sx={{ display: "flex", alignItems: "center", mb: 2 }}>
-                    <Rating
-                      value={course.rating}
-                      precision={0.1}
-                      readOnly
-                      size="small"
-                    />
-                    <Typography
-                      variant="body2"
-                      color="text.secondary"
-                      sx={{ ml: 1 }}
-                    >
-                      ({course.students.toLocaleString()})
-                    </Typography>
-                  </Box>
-
+                  {/* Removed instructor line */}
+                  {/* Removed rating and students */}
                   <Box
                     sx={{
                       display: "flex",
@@ -308,10 +328,25 @@ const Courses = () => {
                   </Box>
                 </CardContent>
 
-                <CardActions sx={{ bgcolor: "grey.50", p: 2 }}>
-                  <Button variant="contained" fullWidth>
-                    Enroll Now
-                  </Button>
+                <CardActions sx={{ bgcolor: alpha(mainColor, 0.05), p: 2 }}>
+                  {course.id === 1 ? (
+                    // First course - button with link
+                    <StyledButton
+                      variant="contained"
+                      fullWidth
+                      component="a"
+                      href="https://classroom.google.com/c/NzY4Njg5MDg5OTUz?cjc=t2gf37ff"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      Enroll Now
+                    </StyledButton>
+                  ) : (
+                    // Other courses - regular button
+                    <StyledButton variant="contained" fullWidth>
+                      Enroll Now
+                    </StyledButton>
+                  )}
                 </CardActions>
               </Card>
             </Grid>
@@ -321,24 +356,24 @@ const Courses = () => {
         {/* Show more button */}
         {filteredCourses.length > 0 && (
           <Box sx={{ mt: 6, textAlign: "center" }}>
-            <Button variant="outlined" size="large" sx={{ px: 4, py: 1 }}>
+            <StyledButton variant="outlined" size="large" sx={{ px: 4, py: 1 }}>
               View All Courses
-            </Button>
+            </StyledButton>
           </Box>
         )}
 
         {/* No courses found */}
         {filteredCourses.length === 0 && (
           <Box sx={{ textAlign: "center", py: 6 }}>
-            <Typography variant="h6" color="text.secondary" sx={{ mb: 2 }}>
+            <Typography variant="h6" sx={{ mb: 2, color: "text.secondary" }}>
               No courses found for this category.
             </Typography>
-            <Button
+            <StyledButton
               variant="contained"
               onClick={() => setSelectedCategory("All")}
             >
               View All Courses
-            </Button>
+            </StyledButton>
           </Box>
         )}
       </Box>

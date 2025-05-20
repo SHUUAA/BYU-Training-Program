@@ -134,7 +134,7 @@ const TopNavbar = ({ setActivePage }) => {
         textAlign: "center",
         backgroundColor: mainColor,
         color: textColor,
-        height: "100%"
+        height: "100%",
       }}
     >
       <Typography variant="h6" sx={{ my: 2, fontWeight: "bold" }}>
@@ -153,13 +153,15 @@ const TopNavbar = ({ setActivePage }) => {
                 sx={{
                   textAlign: "left",
                   "&:hover": {
-                    backgroundColor: alpha(textColor, 0.1)
-                  }
+                    backgroundColor: alpha(textColor, 0.1),
+                  },
                 }}
               >
                 <ListItemText
                   primary={item.name}
-                  primaryTypographyProps={{ fontWeight: expandedItem === item.name ? "bold" : "normal" }}
+                  primaryTypographyProps={{
+                    fontWeight: expandedItem === item.name ? "bold" : "normal",
+                  }}
                 />
                 {item.submenu &&
                   (expandedItem === item.name ? (
@@ -183,8 +185,8 @@ const TopNavbar = ({ setActivePage }) => {
                       sx={{
                         pl: 4,
                         "&:hover": {
-                          backgroundColor: alpha(textColor, 0.1)
-                        }
+                          backgroundColor: alpha(textColor, 0.1),
+                        },
                       }}
                     >
                       <ListItemText primary={subitem.name} />
@@ -229,19 +231,22 @@ const TopNavbar = ({ setActivePage }) => {
             sx={{
               display: { xs: "none", sm: "block" },
               fontWeight: "bold",
-              cursor: "pointer"
+              cursor: "pointer",
+              flexGrow: 1,
             }}
             onClick={() => handleNavigation("home")}
           >
             BYU Training
           </Typography>
 
-          <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" }, ml: 4 }}>
+          <Box sx={{ display: { xs: "none", md: "flex" }, ml: 4 }}>
             {navItems.map((item) => (
               <Box key={item.name} sx={{ position: "relative" }}>
                 <Button
                   color="inherit"
-                  aria-owns={activeMenu === item.name ? "menu-list-grow" : undefined}
+                  aria-owns={
+                    activeMenu === item.name ? "menu-list-grow" : undefined
+                  }
                   aria-haspopup={item.submenu ? "true" : "false"}
                   onClick={
                     item.submenu
@@ -253,8 +258,8 @@ const TopNavbar = ({ setActivePage }) => {
                     mx: 0.5,
                     fontWeight: activeMenu === item.name ? "bold" : "normal",
                     "&:hover": {
-                      backgroundColor: alpha(textColor, 0.1)
-                    }
+                      backgroundColor: alpha(textColor, 0.1),
+                    },
                   }}
                 >
                   {item.name}
@@ -273,8 +278,8 @@ const TopNavbar = ({ setActivePage }) => {
                         backgroundColor: mainColor,
                         color: textColor,
                         mt: 0.5,
-                        boxShadow: "0px 4px 12px rgba(0, 0, 0, 0.3)"
-                      }
+                        boxShadow: "0px 4px 12px rgba(0, 0, 0, 0.3)",
+                      },
                     }}
                   >
                     {item.submenu.map((subitem) => (
@@ -283,8 +288,8 @@ const TopNavbar = ({ setActivePage }) => {
                         onClick={() => handleNavigation(subitem.page)}
                         sx={{
                           "&:hover": {
-                            backgroundColor: alpha(textColor, 0.1)
-                          }
+                            backgroundColor: alpha(textColor, 0.1),
+                          },
                         }}
                       >
                         {subitem.name}
@@ -294,35 +299,6 @@ const TopNavbar = ({ setActivePage }) => {
                 )}
               </Box>
             ))}
-          </Box>
-
-          <Search sx={{ display: { xs: "none", md: "block" } }}>
-            <SearchIconWrapper>
-              <SearchIcon />
-            </SearchIconWrapper>
-            <StyledInputBase
-              placeholder="Search courses..."
-              inputProps={{ "aria-label": "search" }}
-            />
-          </Search>
-
-          <Box sx={{ display: { xs: "none", md: "flex" } }}>
-            <IconButton
-              color="inherit"
-              sx={{
-                '&:hover': { backgroundColor: alpha(textColor, 0.1) }
-              }}
-            >
-              <BellIcon />
-            </IconButton>
-            <IconButton
-              color="inherit"
-              sx={{
-                '&:hover': { backgroundColor: alpha(textColor, 0.1) }
-              }}
-            >
-              <UserIcon />
-            </IconButton>
           </Box>
         </Toolbar>
       </CustomAppBar>
@@ -340,7 +316,7 @@ const TopNavbar = ({ setActivePage }) => {
             boxSizing: "border-box",
             width: 240,
             backgroundColor: mainColor,
-            color: textColor
+            color: textColor,
           },
         }}
       >
